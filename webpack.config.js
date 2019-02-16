@@ -17,7 +17,9 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ]
   },
   output: {
-    filename: 'bundle.js',
+      filename: 'bundle.js',
+      library: 'ChartDraw',
+      libraryTarget:"umd",
     path: path.resolve(__dirname, 'dist')
   }
 };
