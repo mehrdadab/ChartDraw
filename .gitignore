@@ -1,0 +1,23 @@
+#
+# DrawChart Git Ignore
+#
+
+# common files
+
+
+# common directories
+.vs/
+node_modules/
+
+# build directories
+
+
+# tools
+
+package-lock.json
+
+# build
+
+
+
+# eof
