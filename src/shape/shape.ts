@@ -1,4 +1,6 @@
-﻿export class Shape {
+﻿import { Rect } from "../models/rect";
+
+export class Shape {
     private svgArea: HTMLElement;
     private ns: string = 'http://www.w3.org/2000/svg';
     private svg: Element;
@@ -10,12 +12,20 @@
         this.svg.setAttributeNS(null, 'height', '100%');
         div.appendChild(this.svg);
     }
-    public draw(): void {
+    public draw<T>(shapeInfo:T): void {
 
-        var rect = document.createElementNS(this.ns, 'rect');
-        rect.setAttributeNS(null, 'width', "100");
-        rect.setAttributeNS(null, 'height', "100");
-        rect.setAttributeNS(null, 'fill', '#f06');
+        let info: any = shapeInfo;
+        let rect = document.createElementNS(this.ns, 'rect');
+        let left = info.left < info.right ? info.left : info.right;
+        let top = info.top < info.bottom ? info.top : info.bottom;
+        rect.setAttributeNS(null, 'x', (left).toString());
+        rect.setAttributeNS(null, 'y', (top).toString());
+        rect.setAttributeNS(null, 'width', Math.abs(info.right - info.left).toString());
+        rect.setAttributeNS(null, 'height', Math.abs(info.bottom - info.top).toString());
+        rect.setAttributeNS(null, 'fill', 'none');
+        rect.setAttributeNS(null, 'stroke', 'black');
         this.svg.appendChild(rect)
+       
     }
+   
 }
