@@ -2,8 +2,8 @@
 
 export class Shape {
     private svgArea: HTMLElement;
-    private ns: string = 'http://www.w3.org/2000/svg';
-    private svg: Element;
+    protected ns: string = 'http://www.w3.org/2000/svg';
+    protected svg: Element;
     constructor(svgId: string) {
        // this.svgArea = document.getElementById(svgId);
         let div = document.getElementById(svgId);
