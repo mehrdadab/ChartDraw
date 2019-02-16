@@ -9,10 +9,7 @@ export class Ellipse extends Shape {
 
         let info: any = shapeInfo;
         let ellipse = document.createElementNS(this.ns, 'ellipse');
-        let left = info.left < info.right ? info.left : info.right;
-        let top = info.top < info.bottom ? info.top : info.bottom;
-        let right = info.right > info.left ? info.right : info.left;
-        let bottom = info.bottom > info.top ? info.bottom : info.top;
+        let { right, left, bottom, top } = this.extractRectanglePos(info);
         let rx = (right - left) / 2;
         let ry = (bottom - top) / 2;
         ellipse.setAttributeNS(null, 'cx', (left+rx).toString());

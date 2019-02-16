@@ -9,12 +9,11 @@ export class Border extends Shape {
 
         let info: any = shapeInfo;
         let rect = document.createElementNS(this.ns, 'rect');
-        let left = info.left < info.right ? info.left : info.right;
-        let top = info.top < info.bottom ? info.top : info.bottom;
-        rect.setAttributeNS(null, 'x', (left).toString());
-        rect.setAttributeNS(null, 'y', (top).toString());
-        rect.setAttributeNS(null, 'width', Math.abs(info.right - info.left).toString());
-        rect.setAttributeNS(null, 'height', Math.abs(info.bottom - info.top).toString());
+        let { right, left, bottom, top } = this.extractRectanglePos(info);
+        rect.setAttributeNS(null, 'x', left.toString());
+        rect.setAttributeNS(null, 'y', top.toString());
+        rect.setAttributeNS(null, 'width', Math.abs(right - left).toString());
+        rect.setAttributeNS(null, 'height', Math.abs(bottom - top).toString());
         rect.setAttributeNS(null, 'fill', 'none');
         rect.setAttributeNS(null, 'stroke', 'black');
         rect.setAttributeNS(null, 'stroke-dasharray', '4 1');
