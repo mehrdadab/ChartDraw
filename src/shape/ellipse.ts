@@ -1,15 +1,15 @@
 import { Shape } from "./shape";
+import { Svg } from "../svg";
 
 export class Ellipse extends Shape {
-    constructor(svgId: string)
+    constructor(svg: Svg)
     {
-        super(svgId);
+        super(svg);
     }
-    public draw<T>(shapeInfo: T): void {
+    public draw(): void {
 
-        let info: any = shapeInfo;
         let ellipse = document.createElementNS(this.ns, 'ellipse');
-        let { right, left, bottom, top } = this.extractRectanglePos(info);
+        let { right, left, bottom, top } = this.extractRectanglePos(this._rectangularPosition);
         let rx = (right - left) / 2;
         let ry = (bottom - top) / 2;
         ellipse.setAttributeNS(null, 'cx', (left+rx).toString());

@@ -8,10 +8,28 @@
  </head>
 <body>
 
-    <div id="drawing"></div>
+    <div id="drawing" style="width:1000px;height:1000px;"></div>
     <script>
-        var aa = new ChartDraw.Shape("drawing");
-        aa.draw();
+
+        var svg = new ChartDraw.Svg("drawing");
+        var ob1 = null;
+        var ob2 = null;
+        //aa.draw();
+        var cc = new ChartDraw.Connector(svg);
+        var bb = new ChartDraw.ShapeFactory();
+        bb.setExportFunction(info => {
+            var aa = new ChartDraw.Actor(svg);
+            aa.rectangularPosition = info;
+            aa.draw();
+            if (ob1 == null)
+                ob1 = aa;
+            else {
+                ob2 = info;
+                cc.beginObject = ob1;
+                cc.endObject = aa;
+                cc.draw();
+            }
+        });
     </script>
 </body>
 </html>

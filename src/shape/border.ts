@@ -1,19 +1,18 @@
 import { Shape } from "./shape";
+import { Svg } from "../svg";
 
 export class Border extends Shape {
-    constructor(svgId: string)
-    {
-        super(svgId);
+    constructor(svg: Svg) {
+        super(svg);
     }
-    public draw<T>(shapeInfo: T): void {
+    public draw(): void {
 
-        let info: any = shapeInfo;
         let rect = document.createElementNS(this.ns, 'rect');
-        let { right, left, bottom, top } = this.extractRectanglePos(info);
-        rect.setAttributeNS(null, 'x', left.toString());
+        let result = this.extractRectanglePos(this._rectangularPosition);
+        rect.setAttributeNS(null, 'x', result.left.toString());
         rect.setAttributeNS(null, 'y', top.toString());
-        rect.setAttributeNS(null, 'width', Math.abs(right - left).toString());
-        rect.setAttributeNS(null, 'height', Math.abs(bottom - top).toString());
+        rect.setAttributeNS(null, 'width', Math.abs(result.right - result.left).toString());
+        rect.setAttributeNS(null, 'height', Math.abs(result.bottom - result.top).toString());
         rect.setAttributeNS(null, 'fill', 'none');
         rect.setAttributeNS(null, 'stroke', 'black');
         rect.setAttributeNS(null, 'stroke-dasharray', '4 1');

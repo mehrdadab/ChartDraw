@@ -1,38 +1,53 @@
 ﻿import { Rect } from "../models/rect";
+import { Svg } from "../svg";
 
 export class Shape {
-    private svgArea: HTMLElement;
-    protected ns: string = 'http://www.w3.org/2000/svg';
+   // private svgArea: HTMLElement;
+    protected ns: string ;
     protected svg: Element;
-    constructor(svgId: string) {
-       // this.svgArea = document.getElementById(svgId);
-        let div = document.getElementById(svgId);
-        this.svg = document.createElementNS(this.ns, 'svg');
-        this.svg.setAttributeNS(null, 'width', '100%');
-        this.svg.setAttributeNS(null, 'height', '100%');
-        div.appendChild(this.svg);
+    protected _rectangularPosition: Rect;
+
+    public get rectangularPosition(): Rect {
+        return this._rectangularPosition;
     }
-    public draw<T>(shapeInfo:T): void {
+    public set rectangularPosition(pos:Rect) {
+        this._rectangularPosition = pos;
+    }
 
-        let info: any = shapeInfo;
+    public getSVG(): Element {
+        return this.svg;
+    }
+    constructor(svg: Svg) {
+       // this.svgArea = document.getElementById(svgId);
+        //let div = document.getElementById(svgId);
+        //this.svg = document.createElementNS(this.ns, 'svg');
+        //this.svg.setAttributeNS(null, 'width', '100%');
+        //this.svg.setAttributeNS(null, 'height', '100%');
+        //div.appendChild(this.svg);
+        this.ns = svg.ns;
+        this.svg = svg.svg;
+    }
+    public draw(): void {
+
         let rect = document.createElementNS(this.ns, 'rect');
-        let { right, left, bottom, top } = this.extractRectanglePos(info);
+        let result = this.extractRectanglePos(this._rectangularPosition);
 
-        rect.setAttributeNS(null, 'x', (left).toString());
+        rect.setAttributeNS(null, 'x', (result.left).toString());
         rect.setAttributeNS(null, 'y', (top).toString());
-        rect.setAttributeNS(null, 'width', Math.abs(right - left).toString());
-        rect.setAttributeNS(null, 'height', Math.abs(bottom - top).toString());
+        rect.setAttributeNS(null, 'width', Math.abs(result.right - result.left).toString());
+        rect.setAttributeNS(null, 'height', Math.abs(result.bottom - result.top).toString());
         rect.setAttributeNS(null, 'fill', 'none');
         rect.setAttributeNS(null, 'stroke', 'black');
         this.svg.appendChild(rect)
        
     }
-    protected extractRectanglePos(info: any) {
-        let left = info.left < info.right ? info.left : info.right;
-        let top = info.top < info.bottom ? info.top : info.bottom;
-        let right = info.right > info.left ? info.right : info.left;
-        let bottom = info.bottom > info.top ? info.bottom : info.top;
-        return { right, left, bottom, top };
+    protected extractRectanglePos(info: any): Rect {
+        let result = new Rect();
+        result.left = info.left < info.right ? info.left : info.right;
+        result.top = info.top < info.bottom ? info.top : info.bottom;
+        result.right = info.right > info.left ? info.right : info.left;
+        result.bottom = info.bottom > info.top ? info.bottom : info.top;
+        return result;
     }
    
 }
