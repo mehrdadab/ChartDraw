@@ -1,6 +1,6 @@
 ﻿import { fromEvent } from "rxjs";
 import { Rect } from "./models/rect";
-export class ShapeFactory {
+export class MouseReader {
     private info: Rect;
     private postNewPointFunc: any;
     constructor() {

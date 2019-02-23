@@ -16,7 +16,7 @@
         var ob2 = null;
         //aa.draw();
         var cc = new ChartDraw.Connector(svg);
-        var bb = new ChartDraw.ShapeFactory();
+        var bb = new ChartDraw.MouseReader();
         bb.setExportFunction(info => {
             var aa = new ChartDraw.Actor(svg);
             aa.rectangularPosition = info;
