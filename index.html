@@ -7,18 +7,18 @@
     <script src="./dist/bundle.js"></script>
  </head>
 <body>
-
-    <div id="drawing" style="width:1000px;height:1000px;"></div>
+     <div id="drawing" style="width:1000px;height:1000px;"></div>
     <script>
 
         var svg = new ChartDraw.Svg("drawing");
+        var shapeFactory = new ChartDraw.ShapeFactory(svg);
         var ob1 = null;
         var ob2 = null;
         //aa.draw();
         var cc = new ChartDraw.Connector(svg);
         var bb = new ChartDraw.MouseReader();
         bb.setExportFunction(info => {
-            var aa = new ChartDraw.Actor(svg);
+            var aa = shapeFactory.createShape(ChartDraw.ShapeType.Ellipse);
             aa.rectangularPosition = info;
             aa.draw();
             if (ob1 == null)
